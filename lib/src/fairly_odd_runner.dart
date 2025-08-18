@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:fairly_odd_runner/src/components/components.dart';
 import 'package:fairly_odd_runner/src/config.dart';
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 
 class FairlyOddRunner extends FlameGame with HasCollisionDetection {
@@ -17,13 +18,19 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
   double get width => size.x;
   double get height => size.y;
 
+  OddRunner runner = OddRunner();
+
   @override
-  FutureOr<void> onLoad() async {
+  Future<void> onLoad() async {
+    //  camera.viewport.add(World());
+    await Flame.device.fullScreen();
+    await Flame.device.setLandscape();
+
     super.onLoad();
 
     camera.viewfinder.anchor = Anchor.topLeft;
     world.add(PlayArea());
-
+    // world.add(World());
     world.add(
       Ball(
         radius: ballRadius,
@@ -35,11 +42,14 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
           ..scale(height / 4),
       ),
     );
-    world.add(
-      OddRunner(velocity: Vector2(0, 0), position: Vector2(600, 150)),
-    );
+    world.add(runner
+        // OddRunner(
+        //   velocity: Vector2(0, 0),
+        //   position: Vector2(520, 1400),
+        // ),
+        );
     // world.add(OddRunner(velocity: velocity, position: position));
 
-    debugMode = true;
+    // debugMode = true;
   }
 }

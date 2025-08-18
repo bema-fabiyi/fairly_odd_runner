@@ -59,7 +59,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/clouds_1.png
+    - assets/images/clouds_2.png
+    - assets/images/ground_1.png
+    - assets/images/ground_2.png
+    - assets/images/ground_3.png
+    - assets/images/plant.png
+    - assets/images/rocks.png
+    - assets/images/sky.png
     - assets/images/idle_up.png
+    - assets/images/run_up.png
     - assets/Sprites/IDLE/
     - assets/Sprites/RUN/
     - assets/Sprites/ATTACK 1/

@@ -1,23 +1,25 @@
 import 'dart:async';
 
 import 'package:fairly_odd_runner/src/fairly_odd_runner.dart';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
+import 'package:flame/parallax.dart';
 
-class PlayArea extends RectangleComponent
-    with HasGameReference<FairlyOddRunner> {
-  PlayArea()
-      : super(
-          paint: Paint()..color = const Color(0xFFF2E8CF),
-          children: [
-            RectangleHitbox(),
-          ],
-        );
-
+class PlayArea extends ParallaxComponent<FairlyOddRunner> {
   @override
-  FutureOr<void> onLoad() async {
-    super.onLoad();
-    size = Vector2(game.width, game.height);
+  Future<void> onLoad() async {
+    parallax = await game.loadParallax(
+      [
+        ParallaxImageData('clouds_1.png'),
+        ParallaxImageData('clouds_2.png'),
+        ParallaxImageData('sky.png'),
+        ParallaxImageData('plant.png'),
+        ParallaxImageData('rocks.png'),
+        ParallaxImageData('ground_1.png'),
+        ParallaxImageData('ground_2.png'),
+        ParallaxImageData('ground_3.png'),
+      ],
+      baseVelocity: Vector2(10, 0),
+      velocityMultiplierDelta: Vector2(1.8, 1.0),
+    );
   }
 }

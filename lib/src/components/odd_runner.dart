@@ -1,33 +1,34 @@
 import 'dart:async';
 
 import 'package:fairly_odd_runner/src/fairly_odd_runner.dart';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
 class OddRunner extends SpriteAnimationComponent
     with DragCallbacks, HasGameReference<FairlyOddRunner> {
-  OddRunner({required this.velocity, required super.position})
+  OddRunner()
       : super(
           anchor: Anchor.center,
         );
 
-  final Vector2 velocity;
+  // final Vector2 velocity;
 
   @override
   void update(double dt) {
     super.update(dt);
-    position += velocity * dt;
+    // position += velocity * dt;
   }
 
   @override
   FutureOr<void> onLoad() async {
     size = Vector2(500, 500);
-    final image = game.images.load('idle_up.png');
+    final image = game.images.load('run_up.png');
+
     animation = SpriteAnimation.fromFrameData(
       await image,
       SpriteAnimationData.sequenced(
-        amount: 8,
+        amountPerRow: 1,
+        amount: 1,
         stepTime: 0.15,
         textureSize: Vector2(80, 80),
       ),
@@ -35,7 +36,7 @@ class OddRunner extends SpriteAnimationComponent
 //print('Image size: ${image.width}x${image.height}');
 
     // sprite = images.loadSprite('idle_up.png');
-    add(RectangleHitbox());
+    //  add(RectangleHitbox());
   }
 
   // @override
