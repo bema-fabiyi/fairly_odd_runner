@@ -67,12 +67,9 @@ flutter:
     - assets/images/plant.png
     - assets/images/rocks.png
     - assets/images/sky.png
-    - assets/images/idle_up.png
-    - assets/images/run_up.png
-    - assets/Sprites/IDLE/
-    - assets/Sprites/RUN/
-    - assets/Sprites/ATTACK 1/
-    - assets/Sprites/IDLE/idle_down.png
+    - assets/images/idle.png
+    - assets/images/run.png
+    - assets/images/attack.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

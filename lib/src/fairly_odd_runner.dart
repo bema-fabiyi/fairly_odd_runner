@@ -18,19 +18,18 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
   double get width => size.x;
   double get height => size.y;
 
-  OddRunner runner = OddRunner();
+  OddRunner oddRunner = OddRunner();
+  PlayArea playArea = PlayArea();
 
   @override
   Future<void> onLoad() async {
-    //  camera.viewport.add(World());
     await Flame.device.fullScreen();
     await Flame.device.setLandscape();
-
-    super.onLoad();
-
     camera.viewfinder.anchor = Anchor.topLeft;
-    world.add(PlayArea());
-    // world.add(World());
+
+    world.add(playArea);
+    world.add(oddRunner);
+
     world.add(
       Ball(
         radius: ballRadius,
@@ -42,14 +41,6 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
           ..scale(height / 4),
       ),
     );
-    world.add(runner
-        // OddRunner(
-        //   velocity: Vector2(0, 0),
-        //   position: Vector2(520, 1400),
-        // ),
-        );
-    // world.add(OddRunner(velocity: velocity, position: position));
-
-    // debugMode = true;
+    super.onLoad();
   }
 }
