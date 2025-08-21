@@ -18,7 +18,7 @@ class PlayArea extends ParallaxComponent<FairlyOddRunner> {
         ParallaxImageData('ground_2.png'),
         ParallaxImageData('ground_3.png'),
       ],
-      baseVelocity: Vector2(10, 0),
+      baseVelocity: Vector2(5, 0),
       velocityMultiplierDelta: Vector2(1.8, 1.0),
     );
   }

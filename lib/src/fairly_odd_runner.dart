@@ -17,9 +17,13 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
   final rand = math.Random();
   double get width => size.x;
   double get height => size.y;
+  late Timer _enemyTimer;
 
   OddRunner oddRunner = OddRunner();
   PlayArea playArea = PlayArea();
+  Obstacle mushroom = Obstacle();
+  MyButton button =
+      MyButton(position: Vector2(gameWidth / 20, 800), onPressed: () {});
 
   @override
   Future<void> onLoad() async {
@@ -28,19 +32,31 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
     camera.viewfinder.anchor = Anchor.topLeft;
 
     world.add(playArea);
+    // world.add(button);
     world.add(oddRunner);
 
-    world.add(
-      Ball(
-        radius: ballRadius,
-        position: size / 2,
-        velocity: Vector2(
-          rand.nextDouble() - 0.5 * width,
-          height * 0.2,
-        ).normalized()
-          ..scale(height / 4),
-      ),
-    );
+    _enemyTimer = Timer(4, repeat: true, onTick: () {
+      world.add(Obstacle());
+    });
+    _enemyTimer.start();
+
+    // world.add(
+    //   Ball(
+    //     radius: ballRadius,
+    //     position: size / 2,
+    //     velocity: Vector2(
+    //       rand.nextDouble() - 0.5 * width,
+    //       height * 0.2,
+    //     ).normalized()
+    //       ..scale(height / 4),
+    //   ),
+    // );
     super.onLoad();
+  }
+
+  @override
+  void update(dt) {
+    _enemyTimer.update(dt);
+    super.update(dt);
   }
 }

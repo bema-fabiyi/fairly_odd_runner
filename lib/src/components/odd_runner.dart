@@ -13,7 +13,7 @@ class OddRunner extends SpriteAnimationComponent
   late final SpriteAnimation _idleAnimation;
   late final SpriteAnimation _runAnimation;
   late final SpriteAnimation _attackAnimation;
-  final double _animationSpeed = .15;
+  final double _animationSpeed = .10;
   RunnerState _state = RunnerState.idle;
 
   @override

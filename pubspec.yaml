@@ -70,6 +70,9 @@ flutter:
     - assets/images/idle.png
     - assets/images/run.png
     - assets/images/attack.png
+    - assets/images/Mushroom-Die.png
+    - assets/images/Mushroom-Hit.png
+    - assets/images/Mushroom-Run.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
