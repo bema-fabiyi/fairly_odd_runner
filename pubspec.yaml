@@ -73,6 +73,14 @@ flutter:
     - assets/images/Mushroom-Die.png
     - assets/images/Mushroom-Hit.png
     - assets/images/Mushroom-Run.png
+    - assets/images/Heart.png
+    - assets/images/sword.png
+    - assets/images/attackButton.png
+    - assets/images/jumpButton.png
+    - assets/images/game_over_b.png
+    - assets/images/game_over_g.png
+    - assets/images/restart.png
+    - assets/images/Mushroom-Die_pl.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

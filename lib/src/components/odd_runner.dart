@@ -1,20 +1,24 @@
 import 'dart:async';
 
+import 'package:fairly_odd_runner/src/components/components.dart';
 import 'package:fairly_odd_runner/src/config.dart';
 import 'package:fairly_odd_runner/src/fairly_odd_runner.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/widgets.dart';
 
 class OddRunner extends SpriteAnimationComponent
-    with DragCallbacks, HasGameReference<FairlyOddRunner> {
+    with CollisionCallbacks, HasGameReference<FairlyOddRunner> {
   OddRunner() : super(size: Vector2.all(500));
 
   late final SpriteAnimation _idleAnimation;
   late final SpriteAnimation _runAnimation;
   late final SpriteAnimation _attackAnimation;
   final double _animationSpeed = .10;
-  RunnerState _state = RunnerState.idle;
+  RunnerState _state = RunnerState.running;
+  Timer? _attackTimer;
+  final String gameOver = 'GameOver';
 
   @override
   Future<void> onLoad() async {
@@ -23,11 +27,19 @@ class OddRunner extends SpriteAnimationComponent
     await _loadAnimations().then((_) => {animation = _runAnimation});
     // position = game.size / 2;
     position = Vector2(gameWidth / 20, gameHeight / 2);
+    add(
+      RectangleHitbox(
+        size: Vector2(80, 250),
+        anchor: Anchor.center,
+        position: size / 2,
+      ),
+    );
   }
 
   @override
   void update(double dt) {
     super.update(dt);
+    _attackTimer?.update(dt);
   }
 
   Future<void> _loadAnimations() async {
@@ -46,6 +58,54 @@ class OddRunner extends SpriteAnimationComponent
     _attackAnimation =
         attackSpriteSheet.createAnimation(row: 0, stepTime: _animationSpeed);
   }
-}
 
-enum RunnerState { idle, running, attack }
+  @override
+  Future<void> onCollision(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) async {
+    super.onCollision(intersectionPoints, other);
+    if (other is Obstacle && _state != RunnerState.attack) {
+      game.pauseEngine();
+      game.overlays.add(gameOver);
+    } else {}
+  }
+
+  void updateAnimation() {
+    switch (_state) {
+      case RunnerState.attack:
+        animation = _attackAnimation;
+        break;
+      case RunnerState.running:
+        animation = _runAnimation;
+        break;
+      case RunnerState.idle:
+        animation = _idleAnimation;
+        break;
+      case RunnerState.jump:
+        // TODO
+        throw UnimplementedError();
+    }
+  }
+
+  void triggerAttack() {
+    _state = RunnerState.attack;
+    updateAnimation();
+
+    // Set a timer to return to running state after attack completes
+    _attackTimer = Timer(0.8, onTick: () {
+      _state = RunnerState.running;
+      updateAnimation();
+      _attackTimer = null;
+    });
+    _attackTimer!.start(); // Add this line to start the timer
+    for (var enemy in game.world.children.whereType<Obstacle>()) {
+      final distance = position.distanceTo(enemy.position);
+      if (distance < 400) {
+        enemy.die();
+      }
+    }
+  }
+
+  void jump() {}
+}

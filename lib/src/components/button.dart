@@ -1,23 +1,32 @@
 import 'package:flame/components.dart';
-import 'package:flame/input.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 
-class MyButton extends ButtonComponent {
-  MyButton({
+class Button extends PositionComponent with TapCallbacks {
+  late SpriteComponent _icon;
+  final VoidCallback onPressed;
+
+  Button({
     required Vector2 position,
-    required VoidCallback onPressed,
+    required Sprite iconSprite,
+    required this.onPressed,
+    double size = 200,
   }) : super(
           position: position,
-          size: Vector2(120, 50),
+          size: Vector2.all(size),
           anchor: Anchor.center,
-          button: CircleComponent(
-            radius: 100,
-            paint: Paint()..color = const Color(0xFF4285F4), // normal state
-          ),
-          buttonDown: RectangleComponent(
-            size: Vector2(120, 50),
-            paint: Paint()..color = const Color(0xFF3367D6), // pressed state
-          ),
-          onPressed: onPressed,
-        );
+        ) {
+    _icon = SpriteComponent(
+      sprite: iconSprite,
+      size: Vector2.all(size),
+    );
+
+    add(_icon);
+  }
+
+  @override
+  bool onTapDown(TapDownEvent event) {
+    onPressed();
+    return true;
+  }
 }
