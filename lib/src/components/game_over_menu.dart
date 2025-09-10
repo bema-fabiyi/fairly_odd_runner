@@ -21,7 +21,10 @@ class GameOver extends StatelessWidget {
             child: IconButton(
               icon: Image.asset('assets/images/restart.png'),
               onPressed: () {
+                game.reset();
+
                 game.overlays.remove(gameOver);
+                game.resumeEngine();
               },
             ),
           ),

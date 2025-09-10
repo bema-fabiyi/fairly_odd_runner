@@ -22,7 +22,7 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
   late Timer _enemyTimer;
   late Image attackIcon;
   late Image jumpIcon;
-  int score = 0;
+  double score = 0;
   late TextComponent scoreText;
 
   @override
@@ -59,11 +59,12 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
 
     scoreText = TextComponent(
       text: score.toString(),
-      position: Vector2(gameWidth / 2, 20),
+      position: Vector2(gameWidth / 2, 10),
       textRenderer: TextPaint(
         style: const TextStyle(
-          fontSize: 60, // TODO CHANGE FONT
-        ),
+            fontSize: 80,
+            // fontWeight: FontWeight.bold,
+            fontFamily: 'Tiny5'),
       ),
     );
     camera.viewport.add(scoreText);
@@ -74,8 +75,19 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
   @override
   void update(double dt) {
     _enemyTimer.update(dt);
-    score += (60 * dt).toInt();
-    scoreText.text = score.toString();
+    score += 10 * dt;
+    scoreText.text = score.toInt().toString();
     super.update(dt);
+  }
+
+  void reset() {
+    score = 0;
+    oddRunner.state = RunnerState.running;
+    oddRunner
+        .updateAnimation(); // update animation after setting state to running
+    _enemyTimer.reset();
+    world.children.whereType<Obstacle>().forEach((obstacle) {
+      obstacle.removeFromParent();
+    });
   }
 }

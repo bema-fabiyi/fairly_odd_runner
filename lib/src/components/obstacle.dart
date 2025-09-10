@@ -62,7 +62,6 @@ class Obstacle extends SpriteAnimationComponent
 
   void die() async {
     animation = _dieAnimation;
-    // await Future.delayed(const Duration(milliseconds: 500));
-    // removeFromParent();
+    game.score += 100; // increase player score
   }
 }

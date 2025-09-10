@@ -6,7 +6,6 @@ import 'package:fairly_odd_runner/src/fairly_odd_runner.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
-import 'package:flutter/widgets.dart';
 
 class OddRunner extends SpriteAnimationComponent
     with CollisionCallbacks, HasGameReference<FairlyOddRunner> {
@@ -16,7 +15,7 @@ class OddRunner extends SpriteAnimationComponent
   late final SpriteAnimation _runAnimation;
   late final SpriteAnimation _attackAnimation;
   final double _animationSpeed = .10;
-  RunnerState _state = RunnerState.running;
+  RunnerState state = RunnerState.running;
   Timer? _attackTimer;
   final String gameOver = 'GameOver';
 
@@ -65,14 +64,14 @@ class OddRunner extends SpriteAnimationComponent
     PositionComponent other,
   ) async {
     super.onCollision(intersectionPoints, other);
-    if (other is Obstacle && _state != RunnerState.attack) {
+    if (other is Obstacle && state != RunnerState.attack) {
       game.pauseEngine();
       game.overlays.add(gameOver);
     } else {}
   }
 
   void updateAnimation() {
-    switch (_state) {
+    switch (state) {
       case RunnerState.attack:
         animation = _attackAnimation;
         break;
@@ -89,12 +88,12 @@ class OddRunner extends SpriteAnimationComponent
   }
 
   void triggerAttack() {
-    _state = RunnerState.attack;
+    state = RunnerState.attack;
     updateAnimation();
 
     // Set a timer to return to running state after attack completes
     _attackTimer = Timer(0.8, onTick: () {
-      _state = RunnerState.running;
+      state = RunnerState.running;
       updateAnimation();
       _attackTimer = null;
     });
