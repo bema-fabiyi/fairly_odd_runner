@@ -5,28 +5,29 @@ import 'package:flutter/material.dart';
 class Button extends PositionComponent with TapCallbacks {
   late SpriteComponent _icon;
   final VoidCallback onPressed;
+  final double? buttonSize;
+  final Anchor? buttonAnchor;
 
   Button({
-    required Vector2 position,
+    this.buttonAnchor,
+    super.position,
     required Sprite iconSprite,
     required this.onPressed,
-    double size = 200,
+    this.buttonSize,
   }) : super(
-          position: position,
-          size: Vector2.all(size),
-          anchor: Anchor.center,
+          size: Vector2.all(buttonSize ?? 200),
+          anchor: buttonAnchor ?? Anchor.center,
         ) {
     _icon = SpriteComponent(
       sprite: iconSprite,
-      size: Vector2.all(size),
+      size: size,
     );
 
     add(_icon);
   }
 
   @override
-  bool onTapDown(TapDownEvent event) {
+  void onTapDown(TapDownEvent event) {
     onPressed();
-    return true;
   }
 }

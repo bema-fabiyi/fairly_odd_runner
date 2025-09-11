@@ -33,42 +33,68 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
 
     world.add(playArea);
     world.add(oddRunner);
+    // overlays.add('PauseButton');
 
     _enemyTimer = Timer(4, repeat: true, onTick: () {
       world.add(Obstacle());
     });
     _enemyTimer.start();
-    ui.Image attackIcon = await images.load('attackButton.png');
     ui.Image jumpIcon = await images.load('jumpButton.png');
+    ui.Image attackIcon = await images.load('attackButton.png');
+    ui.Image pauseIcon = await images.load('pause.png');
+
+    camera.viewport.add(
+      Button(
+        position: Vector2(gameWidth / 18, gameHeight / 2),
+        onPressed: () {
+          if (!paused) {
+            oddRunner.jump();
+          }
+        },
+        buttonSize: 370,
+        iconSprite: Sprite(jumpIcon),
+      )..priority = 10,
+    );
 
     camera.viewport.add(
       Button(
         position: Vector2(gameWidth / 15, 850),
-        onPressed: oddRunner.triggerAttack,
+        onPressed: () {
+          if (!paused) {
+            oddRunner.triggerAttack();
+          }
+        },
         iconSprite: Sprite(attackIcon),
-      )..priority = 10,
+      ),
+      //..priority = 10,
     );
-    camera.viewport.add(
-      Button(
-        position: Vector2(gameWidth / 18, gameHeight / 2),
-        onPressed: oddRunner.jump,
-        size: 370,
-        iconSprite: Sprite(jumpIcon),
-      )..priority = 10,
+
+    final pauseButton = Button(
+      buttonAnchor: Anchor.topLeft,
+      position: Vector2(gameWidth / 100, 10),
+      buttonSize: 80,
+      onPressed: () {
+        if (!paused) {
+          pauseEngine();
+          overlays.add('PauseMenu');
+        }
+      },
+      iconSprite: Sprite(pauseIcon),
     );
+    camera.viewport.add(pauseButton);
 
     scoreText = TextComponent(
       text: score.toString(),
       position: Vector2(gameWidth / 2, 10),
       textRenderer: TextPaint(
         style: const TextStyle(
-            fontSize: 80,
-            // fontWeight: FontWeight.bold,
-            fontFamily: 'Tiny5'),
+          fontSize: 80,
+          // fontWeight: FontWeight.bold,
+          fontFamily: 'Tiny5',
+        ),
       ),
     );
     camera.viewport.add(scoreText);
-    // overlays.add('pause');
     super.onLoad();
   }
 
@@ -79,6 +105,33 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
     scoreText.text = score.toInt().toString();
     super.update(dt);
   }
+
+  @override
+  void lifecycleStateChange(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.paused:
+        pauseEngine();
+        break;
+      case AppLifecycleState.resumed:
+        resumeEngine();
+        break;
+      case AppLifecycleState.inactive:
+        pauseEngine();
+
+        break;
+      case AppLifecycleState.detached:
+        pauseEngine();
+
+        break;
+      case AppLifecycleState.hidden:
+        pauseEngine();
+
+        break;
+    }
+    super.lifecycleStateChange(state);
+  }
+
+  void pauseGame() {}
 
   void reset() {
     score = 0;

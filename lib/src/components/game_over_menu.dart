@@ -8,8 +8,6 @@ class GameOver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String gameOver = 'GameOver';
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +21,7 @@ class GameOver extends StatelessWidget {
               onPressed: () {
                 game.reset();
 
-                game.overlays.remove(gameOver);
+                game.overlays.remove('GameOver');
                 game.resumeEngine();
               },
             ),

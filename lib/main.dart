@@ -12,6 +12,17 @@ void main() {
         'GameOver': (ctx, game) => GameOver(
               game: myGame,
             ),
+        // 'PauseButton': (ctx, game) => IconButton(
+        //       onPressed: () {
+        //         myGame.pauseEngine();
+        //         myGame.overlays.remove('PauseButton');
+        //         myGame.overlays.add('PauseMenu');
+        //       },
+        //       icon: Image.asset('assets/images/pause.png'),
+        //     ),
+        'PauseMenu': (ctx, game) => PauseMenu(
+              game: myGame,
+            ),
       },
     ),
   );
