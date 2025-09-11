@@ -39,22 +39,22 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
       world.add(Obstacle());
     });
     _enemyTimer.start();
-    ui.Image jumpIcon = await images.load('jumpButton.png');
+    //  ui.Image jumpIcon = await images.load('jumpButton.png');
     ui.Image attackIcon = await images.load('attackButton.png');
     ui.Image pauseIcon = await images.load('pause.png');
 
-    camera.viewport.add(
-      Button(
-        position: Vector2(gameWidth / 18, gameHeight / 2),
-        onPressed: () {
-          if (!paused) {
-            oddRunner.jump();
-          }
-        },
-        buttonSize: 370,
-        iconSprite: Sprite(jumpIcon),
-      )..priority = 10,
-    );
+    // camera.viewport.add(
+    //   Button(
+    //     position: Vector2(gameWidth / 18, gameHeight / 2),
+    //     onPressed: () {
+    //       if (!paused) {
+    //         oddRunner.jump();
+    //       }
+    //     },
+    //     buttonSize: 370,
+    //     iconSprite: Sprite(jumpIcon),
+    //   )..priority = 10,
+    // );
 
     camera.viewport.add(
       Button(
@@ -66,7 +66,6 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
         },
         iconSprite: Sprite(attackIcon),
       ),
-      //..priority = 10,
     );
 
     final pauseButton = Button(
