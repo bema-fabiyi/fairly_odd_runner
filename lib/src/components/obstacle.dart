@@ -14,6 +14,8 @@ class Obstacle extends SpriteAnimationComponent
 
   final double _animationSpeed = .15;
 
+  bool isDead = false;
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -61,6 +63,7 @@ class Obstacle extends SpriteAnimationComponent
   }
 
   void die() async {
+    isDead = true;
     animation = _dieAnimation;
     game.score += 100; // increase player score
   }

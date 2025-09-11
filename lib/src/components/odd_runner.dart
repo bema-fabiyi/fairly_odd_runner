@@ -26,9 +26,10 @@ class OddRunner extends SpriteAnimationComponent
     await _loadAnimations().then((_) => {animation = _runAnimation});
     // position = game.size / 2;
     position = Vector2(gameWidth / 20, gameHeight / 2);
+    //debugMode = true;
     add(
       RectangleHitbox(
-        size: Vector2(80, 250),
+        size: Vector2(150, 250),
         anchor: Anchor.center,
         position: size / 2,
       ),
@@ -64,7 +65,9 @@ class OddRunner extends SpriteAnimationComponent
     PositionComponent other,
   ) async {
     super.onCollision(intersectionPoints, other);
-    if (other is Obstacle && state != RunnerState.attack) {
+    if (other is Obstacle &&
+        // state != RunnerState.attack &&
+        other.isDead != true) {
       game.pauseEngine();
       game.overlays.add(gameOver);
     } else {}
@@ -100,7 +103,7 @@ class OddRunner extends SpriteAnimationComponent
     _attackTimer!.start(); // Add this line to start the timer
     for (var enemy in game.world.children.whereType<Obstacle>()) {
       final distance = position.distanceTo(enemy.position);
-      if (distance < 400) {
+      if (distance < 350) {
         enemy.die();
       }
     }
