@@ -32,6 +32,8 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
     camera.viewfinder.anchor = Anchor.topLeft;
 
     world.add(playArea);
+    //  world.add(Ground(gameWidth, 100));
+
     world.add(oddRunner);
     // overlays.add('PauseButton');
 
@@ -39,29 +41,29 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
       world.add(Obstacle());
     });
     _enemyTimer.start();
-    //  ui.Image jumpIcon = await images.load('jumpButton.png');
+    ui.Image jumpIcon = await images.load('jumpButton.png');
     ui.Image attackIcon = await images.load('attackButton.png');
     ui.Image pauseIcon = await images.load('pause.png');
 
-    // camera.viewport.add(
-    //   Button(
-    //     position: Vector2(gameWidth / 18, gameHeight / 2),
-    //     onPressed: () {
-    //       if (!paused) {
-    //         oddRunner.jump();
-    //       }
-    //     },
-    //     buttonSize: 370,
-    //     iconSprite: Sprite(jumpIcon),
-    //   )..priority = 10,
-    // );
+    camera.viewport.add(
+      Button(
+        position: Vector2(gameWidth / 18, gameHeight / 2),
+        onPressed: () {
+          if (!paused) {
+            oddRunner.jump();
+          }
+        },
+        buttonSize: 370,
+        iconSprite: Sprite(jumpIcon),
+      )..priority = 10,
+    );
 
     camera.viewport.add(
       Button(
         position: Vector2(gameWidth / 15, 850),
         onPressed: () {
           if (!paused) {
-            oddRunner.triggerAttack();
+            oddRunner.attack();
           }
         },
         iconSprite: Sprite(attackIcon),
@@ -135,6 +137,8 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
   void reset() {
     score = 0;
     oddRunner.state = RunnerState.running;
+    oddRunner.groundY =
+        gameHeight / 2; // set runner back to original position if in mid air
     oddRunner
         .updateAnimation(); // update animation after setting state to running
     _enemyTimer.reset();

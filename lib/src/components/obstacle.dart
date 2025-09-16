@@ -12,7 +12,7 @@ class Obstacle extends SpriteAnimationComponent
   late final SpriteAnimation _runAnimation;
   late final SpriteAnimation _dieAnimation;
 
-  final double _animationSpeed = .15;
+  final double _animationSpeed = .10;
 
   bool isDead = false;
 
@@ -26,7 +26,7 @@ class Obstacle extends SpriteAnimationComponent
         );
     add(
       RectangleHitbox(
-        size: Vector2(80, 150),
+        size: Vector2(70, 130),
         anchor: Anchor.topCenter,
         position: size / 2,
         collisionType: CollisionType.passive,
@@ -37,7 +37,7 @@ class Obstacle extends SpriteAnimationComponent
   @override
   void update(double dt) {
     super.update(dt);
-    position -= Vector2(250, 0) * dt;
+    position -= Vector2(260, 0) * dt;
     // remove enemy once it has left the screen
     if (position.x < -game.size.x) {
       removeFromParent();

@@ -18,18 +18,21 @@ class OddRunner extends SpriteAnimationComponent
   RunnerState state = RunnerState.running;
   Timer? _attackTimer;
   final String gameOver = 'GameOver';
+  double gravity = 1400;
+  double jumpForce = -950; // negative because Y increases downwards
+  double verticalVelocity = 0.0;
+  late double groundY;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     //  sprite = await game.loadSprite('idle_right.png'); /// TO LOAD A SINGLE SPRITE
     await _loadAnimations().then((_) => {animation = _runAnimation});
-    // position = game.size / 2;
     position = Vector2(gameWidth / 20, gameHeight / 2);
-    //debugMode = true;
+    groundY = position.y;
     add(
       RectangleHitbox(
-        size: Vector2(150, 250),
+        size: Vector2(120, 180),
         anchor: Anchor.center,
         position: size / 2,
       ),
@@ -40,6 +43,17 @@ class OddRunner extends SpriteAnimationComponent
   void update(double dt) {
     super.update(dt);
     _attackTimer?.update(dt);
+
+    verticalVelocity += gravity * dt;
+    position.y += verticalVelocity * dt;
+
+    // Check landing
+    if (position.y >= groundY) {
+      position.y = groundY;
+      state = RunnerState.running;
+      updateAnimation();
+      verticalVelocity = 0.0;
+    }
   }
 
   Future<void> _loadAnimations() async {
@@ -85,12 +99,12 @@ class OddRunner extends SpriteAnimationComponent
         animation = _idleAnimation;
         break;
       case RunnerState.jump:
-        // TODO
-        throw UnimplementedError();
+        animation = _runAnimation;
+        break;
     }
   }
 
-  void triggerAttack() {
+  void attack() {
     state = RunnerState.attack;
     updateAnimation();
 
@@ -109,5 +123,9 @@ class OddRunner extends SpriteAnimationComponent
     }
   }
 
-  void jump() {}
+  void jump() {
+    state = RunnerState.jump;
+    updateAnimation();
+    verticalVelocity = jumpForce;
+  }
 }
