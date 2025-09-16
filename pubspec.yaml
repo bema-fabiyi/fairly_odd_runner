@@ -87,6 +87,8 @@ flutter:
     - assets/images/t1.png
     - assets/images/t2.png
     - assets/images/t3.png
+    - assets/images/ground.png
+
     - assets/images/bg.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -138,7 +138,7 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
     score = 0;
     oddRunner.state = RunnerState.running;
     oddRunner.groundY =
-        gameHeight / 2; // set runner back to original position if in mid air
+        gameHeight / 1.85; // set runner back to original position if in mid air
     oddRunner
         .updateAnimation(); // update animation after setting state to running
     _enemyTimer.reset();

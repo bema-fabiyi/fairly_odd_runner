@@ -28,7 +28,7 @@ class OddRunner extends SpriteAnimationComponent
     super.onLoad();
     //  sprite = await game.loadSprite('idle_right.png'); /// TO LOAD A SINGLE SPRITE
     await _loadAnimations().then((_) => {animation = _runAnimation});
-    position = Vector2(gameWidth / 20, gameHeight / 2);
+    position = Vector2(gameWidth / 20, gameHeight / 1.85);
     groundY = position.y;
     add(
       RectangleHitbox(

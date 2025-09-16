@@ -19,8 +19,9 @@ class Obstacle extends SpriteAnimationComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
+
     await _loadAnimations().then((_) => {animation = _runAnimation});
-    position = Vector2(game.size.x / 1, 600
+    position = Vector2(game.size.x / 1, 650
         // position = Vector2(gameWidth / 1, 600
         // gameHeight / 2
         );
