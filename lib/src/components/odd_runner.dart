@@ -50,8 +50,10 @@ class OddRunner extends SpriteAnimationComponent
     // Check landing
     if (position.y >= groundY) {
       position.y = groundY;
-      state = RunnerState.running;
-      updateAnimation();
+      if (state == RunnerState.jump) {
+        state = RunnerState.running;
+        updateAnimation();
+      }
       verticalVelocity = 0.0;
     }
   }
