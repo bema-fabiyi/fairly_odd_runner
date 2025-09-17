@@ -18,6 +18,7 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
 
   PlayArea playArea = PlayArea();
   OddRunner oddRunner = OddRunner();
+
   Obstacle mushroom = Obstacle();
   late Timer _enemyTimer;
   late Image attackIcon;
@@ -73,7 +74,7 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
     final pauseButton = Button(
       buttonAnchor: Anchor.topLeft,
       position: Vector2(gameWidth / 100, 10),
-      buttonSize: 80,
+      buttonSize: 100,
       onPressed: () {
         if (!paused) {
           pauseEngine();
@@ -89,7 +90,7 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
       position: Vector2(gameWidth / 2, 10),
       textRenderer: TextPaint(
         style: const TextStyle(
-          fontSize: 80,
+          fontSize: 100,
           // fontWeight: FontWeight.bold,
           fontFamily: 'Tiny5',
         ),

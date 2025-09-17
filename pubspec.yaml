@@ -83,13 +83,13 @@ flutter:
     - assets/images/Mushroom-Die_pl.png
     - assets/images/pause.png
     - assets/images/play.png
-    - assets/images/trees.png
-    - assets/images/t1.png
-    - assets/images/t2.png
-    - assets/images/t3.png
     - assets/images/ground.png
-
-    - assets/images/bg.png
+    - assets/images/odd_runner.png
+    - assets/images/background.png
+    - assets/images/play_button.png
+    - assets/images/main_menu.png
+    - assets/images/resume.png
+    - assets/images/start.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
