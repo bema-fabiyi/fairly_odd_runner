@@ -1,6 +1,7 @@
 import 'package:fairly_odd_runner/src/components/components.dart';
 import 'package:fairly_odd_runner/src/fairly_odd_runner.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget {
@@ -8,6 +9,8 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlameAudio.bgm.play('bgm.wav');
+
     return Scaffold(
       body: Stack(
         children: [
@@ -17,6 +20,22 @@ class MainMenu extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
+          // Align(
+          //   alignment: Alignment.topLeft,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(15.0),
+          //     child: IconButton(
+          //       onPressed: () {
+          //         FlameAudio.bgm.stop();
+          //       },
+          //       icon: Icon(
+          //         Icons.music_note,
+          //         color: Colors.white,
+          //         size: 50,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

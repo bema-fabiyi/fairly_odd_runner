@@ -6,6 +6,7 @@ import 'package:fairly_odd_runner/src/fairly_odd_runner.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 class OddRunner extends SpriteAnimationComponent
     with CollisionCallbacks, HasGameReference<FairlyOddRunner> {
@@ -84,6 +85,7 @@ class OddRunner extends SpriteAnimationComponent
     if (other is Obstacle &&
         // state != RunnerState.attack &&
         other.isDead != true) {
+      FlameAudio.play('collision_sfx.wav');
       game.pauseEngine();
       game.overlays.add(gameOver);
     } else {}
@@ -110,24 +112,36 @@ class OddRunner extends SpriteAnimationComponent
     state = RunnerState.attack;
     updateAnimation();
 
-    // Set a timer to return to running state after attack completes
     _attackTimer = Timer(0.8, onTick: () {
       state = RunnerState.running;
       updateAnimation();
       _attackTimer = null;
     });
-    _attackTimer!.start(); // Add this line to start the timer
+
+    _attackTimer!.start();
+
+    bool hitEnemy = false;
+
     for (var enemy in game.world.children.whereType<Obstacle>()) {
       final distance = position.distanceTo(enemy.position);
-      if (distance < 350) {
+      if (distance < 350 && enemy.isDead != true) {
         enemy.die();
+        hitEnemy = true;
       }
+    }
+
+    if (hitEnemy) {
+      FlameAudio.play('sword_hit_sfx.wav');
+    } else {
+      FlameAudio.play('sword_slash_sfx.wav');
     }
   }
 
   void jump() {
     state = RunnerState.jump;
     updateAnimation();
+    FlameAudio.play('jump_sfx.wav');
+
     verticalVelocity = jumpForce;
   }
 }

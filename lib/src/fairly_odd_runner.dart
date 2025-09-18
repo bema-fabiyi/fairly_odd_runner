@@ -5,6 +5,7 @@ import 'package:fairly_odd_runner/src/config.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 //as flutter;
 
@@ -28,9 +29,18 @@ class FairlyOddRunner extends FlameGame with HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
+    FlameAudio.bgm.initialize();
+    await FlameAudio.audioCache.loadAll(
+      [
+        'bgm2.wav',
+        'collision_sfx.wav',
+        'jump_sfx.wav',
+      ],
+    );
     await Flame.device.fullScreen();
     await Flame.device.setLandscape();
     camera.viewfinder.anchor = Anchor.topLeft;
+    FlameAudio.bgm.play('bgm2.wav');
 
     world.add(playArea);
     //  world.add(Ground(gameWidth, 100));
