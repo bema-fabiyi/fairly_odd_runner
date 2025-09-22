@@ -5,7 +5,7 @@ A 2d side scroller built using Flutter and Flame, where the player runs and atta
 ## 📸 Gameplay Snapshots
 <img width="244" height="129" alt="Screenshot 2025-09-22 at 09 52 41" src="https://github.com/user-attachments/assets/ae21252e-a7ba-4a7c-88a6-5cb33fbf8af7" />
 <img width="196" height="100" alt="Screenshot 2025-09-22 at 09 57 47" src="https://github.com/user-attachments/assets/e89d8b74-887b-4ba0-9741-51caea4bfffc" />
-https://github.com/user-attachments/assets/f0355470-1c4e-4000-8013-500864fa7997
+![Gameplay](https://github.com/user-attachments/assets/4f2303be-a3e1-4b37-87f6-d35b62150fd0)
 
 
 ## 🚀 Installation
